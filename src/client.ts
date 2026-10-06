@@ -8,10 +8,18 @@ export interface WeeekTask {
   projectId: number | null; boardId: number | null; boardColumnId: number | null;
   assignees: string[]; dueDate: string | null; completed: boolean;
   attachments: Attachment[];
+  startDate: string | null;
+  parentId: number | null; subTasks: number[];
+  priority: number | null; type: string; tags: number[]; duration: number | null;
+  customFields: unknown[]; timeEntries: unknown[];
+  startDateTime: string | null; dueDateTime: string | null;
+  locations: Array<{projectId:number; boardId?:number | null; boardColumnId?:number | null}>;
 }
 export interface CreateTaskBody {
   title: string; projectId: number; boardColumnId?: number;
   description?: string; userId?: string; dayFrom?: string;
+  startDate?: string; dueDate?: string; priority?: number;
+  type?: 'action'|'meet'|'call'; customFields?: Record<string,unknown>;
 }
 // WEEEK stores an attachment either itself ("weeek") or in a third-party drive.
 // The vocabulary is closed, so it is a closed type: a new service must fail the
@@ -39,7 +47,8 @@ type Query = Record<string, string | number | boolean | undefined>;
 export class WeeekClient {
   constructor(private cfg: Config, private fetchImpl: typeof fetch = fetch) {}
 
-  private async request<T>(method: string, path: string, opts: { query?: Query; body?: unknown } = {}): Promise<T> {
+  // Internal API adapter shared by typed workflow modules. Never exposed as a generic MCP tool.
+  async request<T>(method: string, path: string, opts: { query?: Query; body?: unknown } = {}): Promise<T> {
     // Tools are listed without a token; the token is required only once a tool
     // actually calls the API. Fail clearly here instead of sending an unauthed request.
     if (!this.cfg.token) throw new WeeekAuthError();
@@ -72,8 +81,8 @@ export class WeeekClient {
       clearTimeout(timer);
     }
     const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
-    if (!res.ok) {
-      throw new WeeekApiError(String(json.message ?? "WEEEK API error"), res.status, `http_${res.status}`);
+    if (!res.ok || json.success === false) {
+      throw new WeeekApiError(String(json.message ?? json.reason ?? "WEEEK API error"), res.status, `http_${res.status}`);
     }
     return json as T;
   }
@@ -102,18 +111,48 @@ export class WeeekClient {
       id: Number(raw.id),
       title: String(raw.title ?? ""),
       description: raw.description ?? null,
-      projectId: raw.projectId == null ? null : Number(raw.projectId),
-      boardId: raw.boardId == null ? null : Number(raw.boardId),
-      boardColumnId: raw.boardColumnId == null ? null : Number(raw.boardColumnId),
-      // WEEEK assigns the task creator by default; the public API exposes assignees
-      // only as read-only here (no reachable endpoint mutates them after creation).
+      projectId: raw.projectId ?? raw.locations?.[0]?.projectId ?? null,
+      boardId: raw.boardId ?? raw.locations?.[0]?.boardId ?? null,
+      boardColumnId: raw.boardColumnId ?? raw.locations?.[0]?.boardColumnId ?? null,
+      locations: Array.isArray(raw.locations) ? raw.locations : [],
+      startDate: raw.startDate ?? null,
+      // The creator is assigned by default; explicit add/remove endpoints exist.
       assignees: Array.isArray(raw.assignees) ? raw.assignees.map(String) : [],
       dueDate: raw.dueDate == null ? null : String(raw.dueDate),
       completed: Boolean(raw.isCompleted ?? raw.completed ?? false),
       // The API returns these with every task; surfacing them is what lets a caller
       // see a screenshot-only description instead of silently working from the prose.
       attachments: Array.isArray(raw.attachments) ? (raw.attachments as Attachment[]) : [],
+      parentId: raw.parentId ?? null,
+      subTasks: Array.isArray(raw.subTasks) ? raw.subTasks.map(Number) : [],
+      priority: raw.priority ?? null, type: raw.type ?? 'action',
+      tags: Array.isArray(raw.tags) ? raw.tags.map(Number) : [],
+      duration: raw.duration ?? null,
+      customFields: Array.isArray(raw.customFields) ? raw.customFields : [],
+      timeEntries: Array.isArray(raw.timeEntries) ? raw.timeEntries : [],
+      startDateTime: raw.startDateTime ?? null, dueDateTime: raw.dueDateTime ?? null,
     };
+  }
+
+  async listFunnels(): Promise<Array<{id: string; name: string}>> {
+    const j = await this.request<{funnels: Array<{id:string; name:string} >}>("GET", "/crm/funnels");
+    return j.funnels;
+  }
+  async listFunnelStatuses(funnelId: string): Promise<Array<{id:string; name:string}>> {
+    const j = await this.request<{statuses: Array<{id:string; name:string}>}>("GET", `/crm/funnels/${encodeURIComponent(funnelId)}/statuses`);
+    return j.statuses;
+  }
+  async listDeals(statusId: string, query: Query): Promise<{deals: Record<string,unknown>[]; hasMoreDeals:boolean}> {
+    const j = await this.request<{deals: Record<string,unknown>[]; hasMoreDeals:boolean}>("GET", `/crm/statuses/${encodeURIComponent(statusId)}/deals`, {query});
+    return {deals:j.deals, hasMoreDeals:j.hasMoreDeals};
+  }
+  async getDeal(id: string): Promise<Record<string,unknown>> {
+    const j = await this.request<{deal:Record<string,unknown>}>("GET", `/crm/deals/${encodeURIComponent(id)}`);
+    return j.deal;
+  }
+  async createDeal(statusId: string, body: Record<string,unknown>): Promise<Record<string,unknown>> {
+    const j = await this.request<{deal:Record<string,unknown>}>("POST", `/crm/statuses/${encodeURIComponent(statusId)}/deals`, {body});
+    return j.deal;
   }
 
   async listProjects(): Promise<NamedEntity[]> {
@@ -138,9 +177,30 @@ export class WeeekClient {
     const payload: Record<string, unknown> = { title: body.title, locations: [location] };
     if (body.description !== undefined) payload.description = body.description;
     if (body.userId !== undefined) payload.userId = body.userId;
-    if (body.dayFrom !== undefined) payload.dayFrom = body.dayFrom;
-    const j = await this.request<{ task: unknown }>("POST", "/tm/tasks", { body: payload });
-    return WeeekClient.toTask(j.task);
+    if (body.priority !== undefined) payload.priority = body.priority;
+    if (body.type !== undefined) payload.type = body.type;
+    if (body.customFields !== undefined) payload.customFields = body.customFields;
+    const j = await this.request<{ task: any }>("POST", "/tm/tasks", { body: payload });
+    const created = WeeekClient.toTask(j.task);
+    const verifyCreated=(task:WeeekTask)=>{
+      if(task.id!==created.id||task.title!==body.title) throw new Error('Created task ID/title differs on readback');
+      return task;
+    };
+    const dates: Record<string,string> = {};
+    if (body.startDate !== undefined) dates.startDate = body.startDate;
+    if (body.dueDate !== undefined || body.dayFrom !== undefined) dates.dueDate = body.dueDate ?? body.dayFrom!;
+    if (Object.keys(dates).length) {
+      try {
+        const verified = await this.updateTask(created.id, dates);
+        if (Object.entries(dates).some(([k,v]) => (verified as any)[k] !== v)) throw new Error("WEEEK did not persist the requested task dates");
+        return verifyCreated(verified);
+      } catch (error) {
+        const reason = error instanceof Error ? error.message : "unknown error";
+        throw new Error(`Task created with ID ${created.id}, but schedule readback failed (${reason}). Check this ID before retrying creation.`);
+      }
+    }
+    try { return verifyCreated(await this.getTask(created.id)); }
+    catch(error) { throw new Error(`Task created with ID ${created.id}, but readback failed (${error instanceof Error?error.message:String(error)}). Inspect this ID before retrying creation.`); }
   }
   async getTask(id: number): Promise<WeeekTask> {
     const j = await this.request<{ task: unknown }>("GET", `/tm/tasks/${id}`);
@@ -151,8 +211,23 @@ export class WeeekClient {
     return WeeekClient.pickArray(j, "tasks").map(WeeekClient.toTask);
   }
   async updateTask(id: number, patch: Record<string, unknown>): Promise<WeeekTask> {
-    const j = await this.request<{ task: unknown }>("PUT", `/tm/tasks/${id}`, { body: patch });
-    return WeeekClient.toTask(j.task);
+    await this.request("PUT", `/tm/tasks/${id}`, { body: patch });
+    try {
+      const task = await this.getTask(id);
+      if(task.id !== id) throw new Error('Wrong task ID returned');
+      for(const [key,value] of Object.entries(patch)) {
+        const actual=(task as any)[key];
+        if(key==='customFields') {
+          const values=Object.fromEntries(task.customFields.map((f:any)=>[f.id,f.value]));
+          if(!Object.entries(value as Record<string,unknown>).every(([k,v])=>JSON.stringify(values[k])===JSON.stringify(v))) throw new Error('Custom fields were not persisted');
+        } else if(key.endsWith('DateTime')&&typeof value==='string'&&typeof actual==='string') {
+          if(Date.parse(value)!==Date.parse(actual)) throw new Error(`Field ${key} was not persisted`);
+        } else if(JSON.stringify(actual)!==JSON.stringify(value)) throw new Error(`Field ${key} was not persisted`);
+      }
+      return task;
+    } catch(error) {
+      throw new Error(`Task updated with ID ${id}, but readback failed (${error instanceof Error?error.message:String(error)}). Inspect this ID before retrying.`);
+    }
   }
   async deleteTask(id: number): Promise<{ success: boolean }> {
     return this.request<{ success: boolean }>("DELETE", `/tm/tasks/${id}`);

@@ -1,0 +1,64 @@
+# weeek-mcp-smart
+
+[![npm version](https://img.shields.io/npm/v/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
+[![npm downloads](https://img.shields.io/npm/dm/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
+[![CI](https://github.com/IlyaIvanchikov/weeek-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/IlyaIvanchikov/weeek-mcp/actions/workflows/test.yml)
+[![node](https://img.shields.io/node/v/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
+[![license](https://img.shields.io/npm/l/weeek-mcp-smart.svg)](./LICENSE)
+
+**The only one-click WEEEK MCP server** — it takes **names, not IDs**. Create a task in one call:
+
+```
+weeek_create_task({ title: "Ship v1", project: "Marketing",
+                    column: "In Progress", assignee: "Ilya", due: "next friday" })
+```
+
+No `list_projects → list_boards → list_columns → list_members` dance first.
+
+<!-- DEMO: drop a gif/screenshot here — an agent creating a task by name in one call.
+     Your PROMOTE.md calls this the biggest single stars lever. Suggested: ![demo](docs/demo.gif) -->
+
+
+## Install (Claude Code / Cursor)
+
+```bash
+claude mcp add weeek -s user -- npx -y weeek-mcp-smart
+# then set WEEEK_API_TOKEN in the generated config
+```
+
+## Install (Claude Desktop, one click)
+
+**[⬇ Download the latest `.mcpb`](https://github.com/IlyaIvanchikov/weeek-mcp/releases/latest/download/weeek-mcp-smart.mcpb)**, then open it in Claude Desktop (Settings → Extensions → install from file). You'll be prompted for your WEEEK API token — it's stored in your OS keychain.
+
+All releases: https://github.com/IlyaIvanchikov/weeek-mcp/releases
+
+## Get a token
+
+WEEEK → Settings → API → generate a personal token.
+
+## Configuration
+
+| Env var | Required | Default | Purpose |
+|---|---|---|---|
+| `WEEEK_API_TOKEN` | to call tools | — | Your WEEEK personal API token. The server starts and lists its tools without it, but any tool call fails until it is set. |
+| `WEEEK_API_BASE_URL` | no | `https://api.weeek.net/public/v1` | Override for self-hosted / regional hosts. |
+| `WEEEK_TIMEOUT_MS` | no | `30000` | Per-request timeout. |
+| `WEEEK_ATTACH_DIR` | no | the server's working directory | Directory `weeek_attach_file` may read from (see Safety). |
+| `WEEEK_ATTACH_MAX_BYTES` | no | `10485760` (10 MB) | Max attachable file size. |
+
+## Safety
+
+This server is driven by an LLM that can read untrusted content (task text, web pages), so the two riskiest tools are guarded:
+
+- **`weeek_attach_file`** only reads files inside an allowed directory (its subfolders included). By default that's the server's **working directory** — so it works with no setup for local files, while paths outside it (`/etc/passwd`, `~/.ssh`, `..` traversal, symlinks that escape) are refused. Set `WEEEK_ATTACH_DIR` to point the jail somewhere specific or lock it down further. No special folder is required.
+- **`weeek_delete_task`** is permanent and requires an explicit `confirm: true`; to merely close a task use `weeek_complete_task`.
+- **`weeek_get_attachment`** returns the image for an attachment WEEEK hosts itself, so a task specified in screenshots can be read rather than guessed at. It downloads bytes only when the attachment's `service` is `weeek`; an attachment parked in Google Drive/Dropbox/OneDrive/Box comes back as metadata with its URL instead. The download sends **no token at all**: WEEEK hands out a pre-signed one-hour URL that redirects to its storage bucket, and the server follows exactly one redirect, only to `https`, with no credentials on either hop. Non-images return metadata only, and anything over `WEEEK_ATTACH_MAX_BYTES` is refused rather than truncated.
+
+## Tools
+
+Reads: `weeek_version`, `weeek_list_projects`, `weeek_list_tasks`, `weeek_get_task`, `weeek_list_members`, `weeek_get_attachment`.
+Writes: `weeek_create_task`, `weeek_create_tasks`, `weeek_update_task`, `weeek_move_task`, `weeek_complete_task`, `weeek_attach_file`, `weeek_delete_task`.
+
+## Author
+
+**Ilya Ivanchikov** — [GitHub](https://github.com/IlyaIvanchikov) · [LinkedIn](https://www.linkedin.com/in/ilyaivanchikov) · [Telegram](https://t.me/IlyaIvanchikov) · [Channel](https://t.me/ivanchikovitclub)

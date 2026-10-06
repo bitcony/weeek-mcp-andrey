@@ -1,0 +1,2241 @@
+{
+  "source": "/root/.hermes/cache/scratch/weeek-api-inventory.json",
+  "operationCount": 157,
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/user/me",
+      "summary": "Get profile",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/ws",
+      "summary": "Get workspace",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/ws/members",
+      "summary": "Get workspace members",
+      "tools": [
+        "weeek_change_task_assignees",
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_list_members"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Чтение в рамках существующих MCP-сценариев; наличие в карте не означает отдельный инструмент для всех API-фильтров.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/ws/tags",
+      "summary": "Get tags",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/ws/tags",
+      "summary": "Create tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/ws/tags/{id}",
+      "summary": "Get tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/ws/tags/{id}",
+      "summary": "Update tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/ws/tags/{id}",
+      "summary": "Delete tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/custom-fields",
+      "summary": "Get global custom fields",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/custom-fields",
+      "summary": "Create global custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/custom-fields/{id}",
+      "summary": "Update global custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/custom-fields/{id}",
+      "summary": "Delete global custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/custom-fields/{id}/transfer-to-project",
+      "summary": "Transfer global custom field to project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/custom-fields/{id}/transfer-to-board",
+      "summary": "Transfer global custom field to board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/custom-fields/{custom_field_id}/options",
+      "summary": "Create global custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Update global custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Delete global custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/custom-fields/{custom_field_id}/options/{id}/move",
+      "summary": "Move global custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/portfolios",
+      "summary": "Get portfolios",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/portfolios",
+      "summary": "Create portfolio",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/portfolios/{id}",
+      "summary": "Get portfolio",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/portfolios/{id}",
+      "summary": "Update portfolio",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/portfolios/{id}",
+      "summary": "Delete portfolio",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/projects",
+      "summary": "Get projects",
+      "tools": [
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_list_projects",
+        "weeek_list_task_statuses",
+        "weeek_set_task_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Чтение в рамках существующих MCP-сценариев; наличие в карте не означает отдельный инструмент для всех API-фильтров.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects",
+      "summary": "Create project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/projects/{id}",
+      "summary": "Get project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/projects/{id}",
+      "summary": "Update project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/projects/{id}",
+      "summary": "Delete project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{id}/archive",
+      "summary": "Archive project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{id}/un-archive",
+      "summary": "Unarchive project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields",
+      "summary": "Create a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/projects/{project_id}/custom-fields/{id}",
+      "summary": "Update a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/projects/{project_id}/custom-fields/{id}",
+      "summary": "Delete a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields/{id}/transfer-to-task-manager",
+      "summary": "Transfer custom field to task manager",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields/{id}/transfer-to-project",
+      "summary": "Transfer custom field to project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields/{id}/transfer-to-board",
+      "summary": "Transfer custom field to board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields/{custom_field_id}/options",
+      "summary": "Create a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/projects/{project_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Update a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/projects/{project_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Delete a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/projects/{project_id}/custom-fields/{custom_field_id}/options/{id}/move",
+      "summary": "Move a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/boards",
+      "summary": "Get boards",
+      "tools": [
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_list_task_statuses",
+        "weeek_set_task_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Чтение в рамках существующих MCP-сценариев; наличие в карте не означает отдельный инструмент для всех API-фильтров.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards",
+      "summary": "Create board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/boards/{id}",
+      "summary": "Update board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/boards/{id}",
+      "summary": "Delete board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{id}/move",
+      "summary": "Move board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields",
+      "summary": "Create a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/boards/{board_id}/custom-fields/{id}",
+      "summary": "Update a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/boards/{board_id}/custom-fields/{id}",
+      "summary": "Delete a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields/{id}/transfer-to-task-manager",
+      "summary": "Transfer custom field to task manager",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields/{id}/transfer-to-project",
+      "summary": "Transfer custom field to project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields/{id}/transfer-to-board",
+      "summary": "Transfer custom field to board",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields/{custom_field_id}/options",
+      "summary": "Create a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/boards/{board_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Update a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/boards/{board_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Delete a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/boards/{board_id}/custom-fields/{custom_field_id}/options/{id}/move",
+      "summary": "Move a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/board-columns",
+      "summary": "Get board column list",
+      "tools": [
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_list_task_statuses",
+        "weeek_move_task",
+        "weeek_set_task_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Чтение в рамках существующих MCP-сценариев; наличие в карте не означает отдельный инструмент для всех API-фильтров.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/board-columns",
+      "summary": "Create board column",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/board-columns/{id}",
+      "summary": "Update board column",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/board-columns/{id}",
+      "summary": "Delete board column",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/board-columns/{id}/move",
+      "summary": "Move board column",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/tm/tasks",
+      "summary": "Get tasks",
+      "tools": [
+        "weeek_list_tasks"
+      ],
+      "coverage": "implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks",
+      "summary": "Create task",
+      "tools": [
+        "weeek_create_task",
+        "weeek_create_tasks"
+      ],
+      "coverage": "partial",
+      "notes": [
+        "Выставлены поддерживаемые поля. Не все поля API доступны; ограничения на диапазоны дат зависят от аккаунта. Замена описания существующей задачи не предоставляется.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/tm/tasks/{id}",
+      "summary": "Get task",
+      "tools": [
+        "weeek_add_task_comment",
+        "weeek_change_task_assignees",
+        "weeek_complete_task",
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_get_task",
+        "weeek_move_task",
+        "weeek_set_task_parent",
+        "weeek_set_task_status",
+        "weeek_update_task"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/tasks/{id}",
+      "summary": "Update a task",
+      "tools": [
+        "weeek_create_task",
+        "weeek_create_tasks",
+        "weeek_update_task"
+      ],
+      "coverage": "partial",
+      "notes": [
+        "Выставлены поддерживаемые поля. Не все поля API доступны; ограничения на диапазоны дат зависят от аккаунта. Замена описания существующей задачи не предоставляется.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{id}",
+      "summary": "Delete task",
+      "tools": [
+        "weeek_delete_task"
+      ],
+      "coverage": "implemented",
+      "notes": [],
+      "tests": [
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/complete",
+      "summary": "Complete task",
+      "tools": [
+        "weeek_complete_task"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/un-complete",
+      "summary": "Un complete task",
+      "tools": [
+        "weeek_complete_task"
+      ],
+      "coverage": "implemented",
+      "notes": [],
+      "tests": [
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/board",
+      "summary": "Change board",
+      "tools": [
+        "weeek_move_task",
+        "weeek_set_task_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "set_task_status вызывает board только при переходе на другую доску; board-column задаёт существующую колонку. Старый move_task выключен в allowlist."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/board-column",
+      "summary": "Change board column",
+      "tools": [
+        "weeek_move_task",
+        "weeek_set_task_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "set_task_status вызывает board только при переходе на другую доску; board-column задаёт существующую колонку. Старый move_task выключен в allowlist.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{task_id}/locations",
+      "summary": "Add a task to a project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{task_id}/locations",
+      "summary": "Remove a task from a project",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{task_id}/attachments",
+      "summary": "Upload attachments",
+      "tools": [
+        "weeek_attach_file"
+      ],
+      "coverage": "implemented",
+      "notes": [],
+      "tests": [
+        "tests/attach.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{task_id}/watchers",
+      "summary": "Add watchers to a task",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{task_id}/watchers",
+      "summary": "Remove watchers from a task",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/start-timer",
+      "summary": "Start task timer",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{id}/stop-timer",
+      "summary": "Stop task timer",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{task_id}/time-entries",
+      "summary": "Create a time entry",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/tm/tasks/{task_id}/time-entries/{time_entry_id}",
+      "summary": "Update a time entry",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{task_id}/time-entries/{time_entry_id}",
+      "summary": "Delete a time entry",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{taskId}/assignees",
+      "summary": "Add assignees",
+      "tools": [
+        "weeek_change_task_assignees"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Добавление/удаление участников по точному имени или ID; проверка результата чтением.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{taskId}/assignees",
+      "summary": "Remove assignee",
+      "tools": [
+        "weeek_change_task_assignees"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Добавление/удаление участников по точному имени или ID; проверка результата чтением."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{taskId}/parent",
+      "summary": "Change task parent",
+      "tools": [
+        "weeek_set_task_parent"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/tm/tasks/{taskId}/comments",
+      "summary": "Get task comments",
+      "tools": [
+        "weeek_add_task_comment",
+        "weeek_list_task_comments"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/tm/tasks/{taskId}/comments",
+      "summary": "Create task comment",
+      "tools": [
+        "weeek_add_task_comment"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/task-workflows.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/tm/tasks/{taskId}/comments/{commentId}",
+      "summary": "Delete task comment",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/reads.test.ts",
+        "tests/task-fields.test.ts",
+        "tests/task-schedule.test.ts",
+        "tests/task-workflows.test.ts",
+        "tests/writes.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/funnels",
+      "summary": "Get all funnels",
+      "tools": [
+        "weeek_create_deal",
+        "weeek_crm_summary",
+        "weeek_list_deals",
+        "weeek_list_funnel_statuses",
+        "weeek_list_funnels"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Есть отдельное чтение воронок. Другие инструменты читают их для проверки области и разрешения имён.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels",
+      "summary": "Create a funnel",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/crm/funnels/{id}",
+      "summary": "Get a funnel",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/funnels/{id}",
+      "summary": "Update a funnel",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/funnels/{id}",
+      "summary": "Delete a funnel",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels/{funnel_id}/custom-fields",
+      "summary": "Create a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{id}",
+      "summary": "Update a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{id}",
+      "summary": "Delete a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{id}/move",
+      "summary": "Move a custom field",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{custom_field_id}/options",
+      "summary": "Create a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Update a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{custom_field_id}/options/{id}",
+      "summary": "Delete a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels/{funnel_id}/custom-fields/{custom_field_id}/options/{id}/move",
+      "summary": "Move a custom field option",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/funnels/{funnelId}/statuses",
+      "summary": "Get all funnel statuses",
+      "tools": [
+        "weeek_create_deal",
+        "weeek_crm_summary",
+        "weeek_list_deals",
+        "weeek_list_funnel_statuses",
+        "weeek_set_deal_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Используется для разрешения имени/ID или проверки контекста; не является отдельным бизнес-сценарием операции.",
+        "Внутреннее чтение для разрешения имени/ID или проверки контекста; само по себе не отдельный бизнес-сценарий.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/crm/funnels/{funnelId}/statuses",
+      "summary": "Create a funnel status",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/crm/statuses/{id}",
+      "summary": "Get a funnel status",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/statuses/{id}",
+      "summary": "Update a funnel status",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/statuses/{id}",
+      "summary": "Delete a funnel status",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/statuses/{statusId}/deals",
+      "summary": "Get all deals",
+      "tools": [
+        "weeek_crm_summary",
+        "weeek_list_deals"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/crm/statuses/{statusId}/deals",
+      "summary": "Create a deal",
+      "tools": [
+        "weeek_create_deal"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "GET",
+      "path": "/crm/deals/{id}",
+      "summary": "Get a deal",
+      "tools": [
+        "weeek_create_deal",
+        "weeek_get_deal",
+        "weeek_set_deal_status",
+        "weeek_update_deal"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Чтение сделки и проверка результата записи.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/deals/{id}",
+      "summary": "Update a deal",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PATCH",
+      "path": "/crm/deals/{id}",
+      "summary": "Update a deal fields",
+      "tools": [
+        "weeek_update_deal"
+      ],
+      "coverage": "partial",
+      "notes": [
+        "Доступны title, amount, winStatus, customFields. description не выставлен: API игнорировал его в живом тесте.",
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{id}",
+      "summary": "Delete a deal",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{id}/move",
+      "summary": "Move a deal",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/deals/{id}/funnel",
+      "summary": "Update the deal funnel",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/deals/{id}/status",
+      "summary": "Update the deal funnel status",
+      "tools": [
+        "weeek_set_deal_status"
+      ],
+      "coverage": "implemented",
+      "notes": [
+        "Live означает проверку хотя бы одного сценария/набора полей, не всех вариантов API."
+      ],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": true
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{dealId}/assignees",
+      "summary": "Attach an assignee",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{dealId}/assignees",
+      "summary": "Detach an assignee",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{dealId}/contacts",
+      "summary": "Attach a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{dealId}/contacts",
+      "summary": "Detach a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{dealId}/organizations",
+      "summary": "Attach an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{dealId}/organizations",
+      "summary": "Detach an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{dealId}/tags",
+      "summary": "Attach a tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{dealId}/tags",
+      "summary": "Detach a tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{id}/tasks",
+      "summary": "Attach a new task",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{id}/tasks/{taskId}/move",
+      "summary": "Move a attached to the deal task",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/deals/{id}/tasks/{taskId}",
+      "summary": "Detach a task",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/deals/{deal_id}/attachments",
+      "summary": "Upload attachments",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/organizations",
+      "summary": "Get all organizations",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations",
+      "summary": "Create an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/organizations/{id}",
+      "summary": "Get an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/organizations/{id}",
+      "summary": "Update an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{id}",
+      "summary": "Delete an organization",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations/{organizationId}/addresses",
+      "summary": "Create an address",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/organizations/{organizationId}/addresses/{addressId}",
+      "summary": "Update the address",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{organizationId}/addresses/{addressId}",
+      "summary": "Delete the address",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations/{organizationId}/emails",
+      "summary": "Create an email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/organizations/{organizationId}/emails/{emailId}",
+      "summary": "Update the email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{organizationId}/emails/{emailId}",
+      "summary": "Delete the email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations/{organizationId}/phones",
+      "summary": "Create a phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/organizations/{organizationId}/phones/{phoneId}",
+      "summary": "Update the phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{organizationId}/phones/{phoneId}",
+      "summary": "Delete the phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations/{organizationId}/contacts",
+      "summary": "Attach a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{organizationId}/contacts",
+      "summary": "Detach the contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/organizations/{organizationId}/tags",
+      "summary": "Attach a tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/organizations/{organizationId}/tags",
+      "summary": "Detach the tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/currencies",
+      "summary": "Get all currencies",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/contacts",
+      "summary": "Get all contacts",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/contacts",
+      "summary": "Create a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/crm/contacts/{id}",
+      "summary": "Get a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/contacts/{id}",
+      "summary": "Update a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/contacts/{id}",
+      "summary": "Delete a contact",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/contacts/{contactId}/emails",
+      "summary": "Create an email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/contacts/{contactId}/emails/{emailId}",
+      "summary": "Update the email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/contacts/{contactId}/emails/{emailId}",
+      "summary": "Delete the email",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/contacts/{contactId}/phones",
+      "summary": "Create a phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "PUT",
+      "path": "/crm/contacts/{contactId}/phones/{phoneId}",
+      "summary": "Update the phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/contacts/{contactId}/phones/{phoneId}",
+      "summary": "Delete the phone",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "POST",
+      "path": "/crm/contacts/{contactId}/tags",
+      "summary": "Attach a tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "DELETE",
+      "path": "/crm/contacts/{contactId}/tags",
+      "summary": "Detach the tag",
+      "tools": [],
+      "coverage": "not_implemented",
+      "notes": [],
+      "tests": [
+        "tests/crm-workflows.test.ts",
+        "tests/crm.test.ts"
+      ],
+      "liveVerified": false
+    },
+    {
+      "method": "GET",
+      "path": "/ws/attachments/{file_id}",
+      "summary": "Get an attachment",
+      "tools": [
+        "weeek_get_attachment"
+      ],
+      "coverage": "implemented",
+      "notes": [],
+      "tests": [
+        "tests/attach.test.ts",
+        "tests/client.test.ts",
+        "tests/reads.test.ts"
+      ],
+      "liveVerified": false
+    }
+  ]
+}

@@ -5,6 +5,9 @@ import { NameCache } from "./cache.js";
 import { Resolver } from "./resolver.js";
 import { registerReadTools } from "./tools/reads.js";
 import { registerWriteTools } from "./tools/writes.js";
+import { registerCrmTools } from "./tools/crm.js";
+import { registerTaskWorkflowTools } from "./tools/task-workflows.js";
+import { registerCrmWorkflowTools } from "./tools/crm-workflows.js";
 import { NAME, VERSION } from "./version.js";
 
 export function buildServer(config: Config): McpServer {
@@ -19,5 +22,8 @@ export function buildServer(config: Config): McpServer {
     attachDir: config.attachDir ?? process.cwd(),
     maxBytes: config.attachMaxBytes,
   });
+  registerCrmTools(server, client);
+  registerTaskWorkflowTools(server, client, resolver);
+  registerCrmWorkflowTools(server, client);
   return server;
 }

@@ -9,11 +9,21 @@ import { parseDueDate } from "../dates.js";
 import { jsonReply, errorReply } from "./reply.js";
 
 const nameOrId = z.union([z.string(), z.number()]);
+const richUpdateShape = {
+  type:z.enum(['action','meet','call']).optional(),
+  duration:z.number().int().nonnegative().nullable().optional(),
+  tags:z.array(z.number().int().positive()).optional(),
+  customFields:z.record(z.unknown()).optional(),
+  startDateTime:z.string().datetime({offset:true}).nullable().optional(),
+  dueDateTime:z.string().datetime({offset:true}).nullable().optional(),
+};
 
 interface CreateInput {
   title: string; project: string | number;
   column?: string | number; assignee?: string | number;
   due?: string; description?: string;
+  startDate?: string; dueDate?: string; priority?: number;
+  type?: 'action'|'meet'|'call'; customFields?: Record<string,unknown>;
 }
 
 export async function buildCreateBody(resolver: Resolver, input: CreateInput): Promise<CreateTaskBody> {
@@ -21,8 +31,15 @@ export async function buildCreateBody(resolver: Resolver, input: CreateInput): P
   const body: CreateTaskBody = { title: input.title, projectId };
   if (input.column !== undefined) body.boardColumnId = await resolver.resolveColumn(projectId, input.column);
   if (input.assignee !== undefined) body.userId = await resolver.resolveAssignee(input.assignee);
-  if (input.due !== undefined) body.dayFrom = parseDueDate(input.due);
+  if (input.due !== undefined && input.dueDate !== undefined) throw new Error("Use either due or dueDate, not both");
+  if (input.startDate !== undefined) body.startDate = input.startDate;
+  if (input.dueDate !== undefined) body.dueDate = input.dueDate;
+  if (input.due !== undefined) body.dueDate = parseDueDate(input.due);
+  if (body.startDate && body.dueDate && body.startDate > body.dueDate) throw new Error("startDate must not be after dueDate");
+  if (input.priority !== undefined) body.priority = input.priority;
   if (input.description !== undefined) body.description = input.description;
+  if (input.type !== undefined) body.type = input.type;
+  if (input.customFields !== undefined) body.customFields = input.customFields;
   return body;
 }
 
@@ -32,7 +49,12 @@ const createShape = {
   column: nameOrId.optional(),
   assignee: nameOrId.optional(),
   due: z.string().optional(),
+  startDate: z.string().date().optional(),
+  dueDate: z.string().date().optional(),
+  priority: z.number().int().min(0).max(3).optional(),
   description: z.string().optional(),
+  type:z.enum(['action','meet','call']).optional(),
+  customFields:z.record(z.unknown()).optional(),
 };
 
 export function registerWriteTools(
@@ -44,7 +66,7 @@ export function registerWriteTools(
   server.registerTool(
     "weeek_create_task",
     {
-      description: "Create a WEEEK task. Accepts project/column/assignee by NAME or id, and a natural-language `due` date. One call — no need to look up ids first. Omit `assignee` to self-assign (WEEEK assigns the token owner); pass a member name/id to assign someone else. Reassigning an existing task is not supported by the WEEEK public API — set the assignee at creation.",
+      description: "Create a WEEEK task by project/column/assignee NAME or ID, with description, priority, task type (action/meet/call) and customFields. Use YYYY-MM-DD dueDate or natural-language due; optional startDate ranges may be rejected by workspace limits. Always reads the created ID back; never repeats creation after an uncertain outcome. WEEEK assigns the token owner by default. Use weeek_change_task_assignees to change assignees later and weeek_add_task_comment to append task content.",
       inputSchema: createShape,
     },
     async (args) => {
@@ -81,14 +103,22 @@ export function registerWriteTools(
   server.registerTool(
     "weeek_update_task",
     {
-      description: "Update an existing WEEEK task's title or due date. NOTE: description is NOT updatable — WEEEK's API silently ignores it on update; set the description at create time (weeek_create_task) or edit it in the UI.",
-      inputSchema: { id: z.number().int(), title: z.string().optional(), due: z.string().optional() },
+      description: "Update task title, priority, type, estimated duration in minutes, tags, customFields, date-only start/deadline or ISO datetime fields. Null clears nullable fields. Do not mix date-only and datetime strings. Reads back and verifies each field; reports an updated ID on uncertainty. Use dueDate alone if workspace rejects ranges. Description replacement is not supported: append details with weeek_add_task_comment or set description when creating the task.",
+      inputSchema: { id: z.number().int().positive(), title: z.string().min(1).max(255).optional(), due: z.string().optional(), startDate:z.string().date().nullable().optional(), dueDate:z.string().date().nullable().optional(), priority:z.number().int().min(0).max(3).nullable().optional(), ...richUpdateShape },
     },
     async (args) => {
       try {
         const patch: Record<string, unknown> = {};
         if (args.title !== undefined) patch.title = args.title;
-        if (args.due !== undefined) patch.dayFrom = parseDueDate(args.due);
+        if (args.due !== undefined && args.dueDate !== undefined) throw new Error("Use either due or dueDate, not both");
+        if (args.startDate !== undefined) patch.startDate = args.startDate;
+        if (args.dueDate !== undefined) patch.dueDate = args.dueDate;
+        if (args.due !== undefined) patch.dueDate = parseDueDate(args.due);
+        if (args.priority !== undefined) patch.priority = args.priority;
+        for(const key of Object.keys(richUpdateShape)) if((args as any)[key]!==undefined) patch[key]=(args as any)[key];
+        if ((typeof patch.startDate==='string'||typeof patch.dueDate==='string')&&(typeof patch.startDateTime==='string'||typeof patch.dueDateTime==='string')) throw new Error('Use date-only fields OR datetime fields, not both');
+        if (typeof patch.startDate === "string" && typeof patch.dueDate === "string" && patch.startDate > patch.dueDate) throw new Error("startDate must not be after dueDate");
+        if(!Object.keys(patch).length) throw new Error('Provide at least one supported field. To add task content, use weeek_add_task_comment; description cannot be replaced by the public API.');
         return jsonReply(await client.updateTask(args.id, patch));
       } catch (err) { return errorReply(err); }
     },

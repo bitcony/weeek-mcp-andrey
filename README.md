@@ -1,64 +1,122 @@
-# weeek-mcp-smart
+# WEEEK MCP Server (Extended Fork)
 
-[![npm version](https://img.shields.io/npm/v/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
-[![npm downloads](https://img.shields.io/npm/dm/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
-[![CI](https://github.com/IlyaIvanchikov/weeek-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/IlyaIvanchikov/weeek-mcp/actions/workflows/test.yml)
-[![node](https://img.shields.io/node/v/weeek-mcp-smart.svg)](https://www.npmjs.com/package/weeek-mcp-smart)
-[![license](https://img.shields.io/npm/l/weeek-mcp-smart.svg)](./LICENSE)
+[![CI](https://github.com/bitcony/weeek-mcp-andrey/actions/workflows/test.yml/badge.svg)](https://github.com/bitcony/weeek-mcp-andrey/actions/workflows/test.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-**The only one-click WEEEK MCP server** — it takes **names, not IDs**. Create a task in one call:
+Форк MCP-сервера для [WEEEK](https://weeek.net/) с расширенной поддержкой управления задачами и полноценным модулем CRM.
 
-```
-weeek_create_task({ title: "Ship v1", project: "Marketing",
-                    column: "In Progress", assignee: "Ilya", due: "next friday" })
-```
+Оригинальный репозиторий: [IlyaIvanchikov/weeek-mcp](https://github.com/IlyaIvanchikov/weeek-mcp) (MIT License).
 
-No `list_projects → list_boards → list_columns → list_members` dance first.
+---
 
-<!-- DEMO: drop a gif/screenshot here — an agent creating a task by name in one call.
-     Your PROMOTE.md calls this the biggest single stars lever. Suggested: ![demo](docs/demo.gif) -->
+## Зачем создан этот форк
 
+Оригинальный MCP-сервер поддерживал только базовые операции создания и чтения задач. При интеграции с AI-агентами и сложными рабочими процессами возникла необходимость в расширенном функционале:
 
-## Install (Claude Code / Cursor)
+1. **Полноценная CRM:**
+   - Чтение воронок и этапов продаж (`weeek_list_funnels`, `weeek_list_funnel_statuses`).
+   - Управление сделками (`weeek_create_deal`, `weeek_get_deal`, `weeek_list_deals`, `weeek_update_deal`).
+   - Перемещение сделок по этапам с верификацией (`weeek_set_deal_status`).
+   - Управление исходами сделок (`won`, `lost`, `archived`) и аналитическая сводка (`weeek_crm_summary`).
+2. **Расширенные сценарии работы с задачами:**
+   - Перемещение задач между колонками и досками проекта (`weeek_set_task_status`).
+   - Добавление и пагинированное чтение комментариев в Markdown (`weeek_add_task_comment`, `weeek_list_task_comments`).
+   - Управление исполнителями задачи (`weeek_change_task_assignees`).
+   - Управление иерархией подзадач (`weeek_set_task_parent`).
+   - Корректная обработка нативных дат (`dueDate`, `startDate`).
+3. **Контроль контракта WEEEK OpenAPI:**
+   - Полная матрица соответствия всех 157 операций публичного API (`docs/API-MATRIX.md`).
+   - Автоматический трекинг изменений и обновлений API WEEEK (`npm run api:check`).
+   - 151 автоматический тест, проверяющий сценарии, валидацию и обработку ошибок.
+
+---
+
+## Документация
+
+- [Матрица соответствия API WEEEK и MCP](docs/API-MATRIX.md) — статус поддержки всех 157 эндпоинтов.
+- [Дорожная карта развития](docs/ROADMAP.md) — список сущностей и фаз для достижения 100% покрытия API.
+- [Руководство по сопровождению и обновлению API](docs/MAINTENANCE.md) — процедура актуализации при выходе новых версий API.
+- [Руководство по тестированию](docs/TESTING.md) — запуск unit-тестов и безопасных приёмочных сценариев.
+
+---
+
+## Быстрый старт
+
+### 1. Установка зависимостей и сборка
 
 ```bash
-claude mcp add weeek -s user -- npx -y weeek-mcp-smart
-# then set WEEEK_API_TOKEN in the generated config
+npm ci
+npm run verify
 ```
 
-## Install (Claude Desktop, one click)
+Команда `npm run verify` запустит 151 тест, проверку типов TypeScript и сборку проекта в `dist/`.
 
-**[⬇ Download the latest `.mcpb`](https://github.com/IlyaIvanchikov/weeek-mcp/releases/latest/download/weeek-mcp-smart.mcpb)**, then open it in Claude Desktop (Settings → Extensions → install from file). You'll be prompted for your WEEEK API token — it's stored in your OS keychain.
+### 2. Запуск MCP-сервера
 
-All releases: https://github.com/IlyaIvanchikov/weeek-mcp/releases
+```bash
+# Через локальный файл переменных окружения:
+node --env-file=.env dist/index.js
 
-## Get a token
+# Или с прямой передачей токена:
+WEEEK_API_TOKEN=your_token_here node dist/index.js
+```
 
-WEEEK → Settings → API → generate a personal token.
+### 3. Подключение к Claude Desktop / Cursor / Hermes
 
-## Configuration
+В конфигурационном файле MCP клиента:
 
-| Env var | Required | Default | Purpose |
-|---|---|---|---|
-| `WEEEK_API_TOKEN` | to call tools | — | Your WEEEK personal API token. The server starts and lists its tools without it, but any tool call fails until it is set. |
-| `WEEEK_API_BASE_URL` | no | `https://api.weeek.net/public/v1` | Override for self-hosted / regional hosts. |
-| `WEEEK_TIMEOUT_MS` | no | `30000` | Per-request timeout. |
-| `WEEEK_ATTACH_DIR` | no | the server's working directory | Directory `weeek_attach_file` may read from (see Safety). |
-| `WEEEK_ATTACH_MAX_BYTES` | no | `10485760` (10 MB) | Max attachable file size. |
+```json
+{
+  "mcpServers": {
+    "weeek": {
+      "command": "node",
+      "args": ["/path/to/weeek-mcp/dist/index.js"],
+      "env": {
+        "WEEEK_API_TOKEN": "your_token_here"
+      }
+    }
+  }
+}
+```
 
-## Safety
+---
 
-This server is driven by an LLM that can read untrusted content (task text, web pages), so the two riskiest tools are guarded:
+## Доступные инструменты (27 инструментов)
 
-- **`weeek_attach_file`** only reads files inside an allowed directory (its subfolders included). By default that's the server's **working directory** — so it works with no setup for local files, while paths outside it (`/etc/passwd`, `~/.ssh`, `..` traversal, symlinks that escape) are refused. Set `WEEEK_ATTACH_DIR` to point the jail somewhere specific or lock it down further. No special folder is required.
-- **`weeek_delete_task`** is permanent and requires an explicit `confirm: true`; to merely close a task use `weeek_complete_task`.
-- **`weeek_get_attachment`** returns the image for an attachment WEEEK hosts itself, so a task specified in screenshots can be read rather than guessed at. It downloads bytes only when the attachment's `service` is `weeek`; an attachment parked in Google Drive/Dropbox/OneDrive/Box comes back as metadata with its URL instead. The download sends **no token at all**: WEEEK hands out a pre-signed one-hour URL that redirects to its storage bucket, and the server follows exactly one redirect, only to `https`, with no credentials on either hop. Non-images return metadata only, and anything over `WEEEK_ATTACH_MAX_BYTES` is refused rather than truncated.
+### Задачи (Tasks)
+- `weeek_create_task` — создание задачи по названиям проекта/колонки/исполнителя или ID.
+- `weeek_create_tasks` — пакетное создание задач.
+- `weeek_get_task` — получение детальной информации о задаче.
+- `weeek_list_tasks` — поиск и фильтрация задач.
+- `weeek_update_task` — обновление полей задачи, дедлайнов и приоритетов.
+- `weeek_set_task_status` — перемещение задачи в существующую колонку доски.
+- `weeek_complete_task` — закрытие или повторное открытие задачи.
+- `weeek_delete_task` — безвозвратное удаление задачи (`confirm: true`).
+- `weeek_set_task_parent` — привязка подзадачи к родительской задаче или отсоединение.
+- `weeek_change_task_assignees` — добавление/удаление ответственных по имени или ID.
+- `weeek_add_task_comment` — добавление комментария в Markdown.
+- `weeek_list_task_comments` — пагинированное чтение комментариев задачи.
+- `weeek_attach_file` — прикрепление локального файла (в рамках разрешённой директории).
+- `weeek_get_attachment` — безопасное чтение вложения.
 
-## Tools
+### CRM
+- `weeek_list_funnels` — список воронок продаж.
+- `weeek_list_funnel_statuses` — список этапов выбранной воронки.
+- `weeek_create_deal` — создание сделки в выбранной воронке и этапе (`confirm: true`).
+- `weeek_get_deal` — получение карточки сделки.
+- `weeek_list_deals` — список сделок на этапе с пагинацией.
+- `weeek_update_deal` — обновление полей сделки, суммы и статуса победы/архива.
+- `weeek_set_deal_status` — перенос сделки на другой этап воронки.
+- `weeek_crm_summary` — сводный аналитический отчёт по воронке (количество, суммы, распределение).
 
-Reads: `weeek_version`, `weeek_list_projects`, `weeek_list_tasks`, `weeek_get_task`, `weeek_list_members`, `weeek_get_attachment`.
-Writes: `weeek_create_task`, `weeek_create_tasks`, `weeek_update_task`, `weeek_move_task`, `weeek_complete_task`, `weeek_attach_file`, `weeek_delete_task`.
+### Служебные и справочники
+- `weeek_version` — имя и версия MCP-сервера.
+- `weeek_list_projects` — список доступных проектов.
+- `weeek_list_task_statuses` — список досок и колонок проекта.
+- `weeek_list_members` — список участников пространства.
 
-## Author
+---
 
-**Ilya Ivanchikov** — [GitHub](https://github.com/IlyaIvanchikov) · [LinkedIn](https://www.linkedin.com/in/ilyaivanchikov) · [Telegram](https://t.me/IlyaIvanchikov) · [Channel](https://t.me/ivanchikovitclub)
+## Лицензия
+
+MIT License. Исходный код базируется на репозитории [IlyaIvanchikov/weeek-mcp](https://github.com/IlyaIvanchikov/weeek-mcp).
